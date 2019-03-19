@@ -27,7 +27,7 @@ où {username Docker} est le nom d'utilisateur d'un compte Docker (ex.: `docker 
 
 On peut confirmer que le déploiement a été effectué avec succès en naviguant à l'adresse `http://0.0.0.0:8080` sur un fureteur web.
 
----
+# (Q3) Manuel de configuration et d'exécution de JProfiler
 
 Les lignes suivantes ont été ajouté au Dockerfile pour installer JProfiler:
 
