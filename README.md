@@ -19,10 +19,17 @@ On lance la conteneur Mongo avec la commande suivante.
 
 ```docker run --name mongodb -d mongo```
 
-Finalement, on lance l'application Weka REST avec la commande qui suit.
+Finalement, on lance l'application Weka REST sur un conteneur avec la commande qui suit.
 
 ```docker run -p 8080:8080 --link mongodb:mongodb {username Docker}/jguweka:OAS3```
 
 où {username Docker} est le nom d'utilisateur d'un compte Docker (ex.: `docker run -p 8080:8080 --link mongodb:mongodb hacene/jguweka:OAS3`)
 
 On peut confirmer que le déploiement a été effectué avec succès en naviguant à l'adresse `http://0.0.0.0:8080` sur un fureteur web.
+
+---
+
+Notons que pour la Q3, il faut lancer l'application Weka REST sur un conteneur en mappant le port 8849 du conteneur au port 8849 de l'hôte:
+
+```docker run -p 8080:8080 -p 8849:8849 --link mongodb:mongodb {username Docker}/jguweka:OAS3```
+
