@@ -52,6 +52,8 @@ Il faut ensuite se connecter en SSH au conteneur avec la commande:
 
 `docker exec -it {Container Name} bash`
 
+où le {Container Name} peut être obtenu avec la commande `docker ps`.
+
 Dans le conteneur, effectuer les commande suivantes pour configurer JProfiler:
 
 ```
@@ -61,7 +63,14 @@ bin/jpenable
 
 Sélectionner l'option `1` puis appuyer sur `Enter`. Entrer le port `8849`.
 
-Télécharger JProfiler 11.0 (même version que sur le conteneur Docker) sur l'hôte et créer une nouvelle session pointant vers l'addresse IP du conteneur en spécifiant le port 8849. La commande `docker inspect {Container Name}` pour connaitre l'addresse IP.
+Télécharger JProfiler 11.0 (même version que sur le conteneur Docker) sur l'hôte et créer une nouvelle session pointant vers l'addresse IP `127.0.0.1` en spécifiant le port 8849. La session ouverte permet ainsi l'obtention de données sur la consommation des ressources par l'application Weka REST roulant sur le conteneur Docker créé.
+
+# (Q4) Manuel de configuration de JMeter
+
+
+
+
+
 
 
 
