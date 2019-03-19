@@ -3,7 +3,7 @@
 
 On commence par compiler le WAR avec Maven avec la commande suivante..
 
-```mvn clean packagei```
+```mvn clean package```
 
 On construit ensuite l'image Docker avec la commande suivante.
 
@@ -11,7 +11,7 @@ On construit ensuite l'image Docker avec la commande suivante.
 
 où {username Docker} est le nom d'utilisateur d'un compte Docker (ex.: `docker build -t hacene/jguweka:OAS3 .`)
 
-On télécharge le conteneur Mongo officel avec la commande qui suit.
+On télécharge le conteneur Mongo officiel avec la commande qui suit.
 
 ```docker pull mongo```
 
