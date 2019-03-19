@@ -52,6 +52,8 @@ Il faut ensuite se connecter en SSH au conteneur avec la commande:
 
 `docker exec -it {Container Name} bash`
 
+où le {Container Name} peut être obtenu avec la commande `docker ps`.
+
 Dans le conteneur, effectuer les commande suivantes pour configurer JProfiler:
 
 ```
@@ -61,7 +63,22 @@ bin/jpenable
 
 Sélectionner l'option `1` puis appuyer sur `Enter`. Entrer le port `8849`.
 
-Télécharger JProfiler 11.0 (même version que sur le conteneur Docker) sur l'hôte et créer une nouvelle session pointant vers l'addresse IP du conteneur en spécifiant le port 8849. La commande `docker inspect {Container Name}` pour connaitre l'addresse IP.
+Télécharger JProfiler 11.0 (même version que sur le conteneur Docker) sur l'hôte et créer une nouvelle session pointant vers l'addresse IP `127.0.0.1` en spécifiant le port 8849. La session ouverte permet ainsi l'obtention de données sur la consommation des ressources par l'application Weka REST roulant sur le conteneur Docker créé.
+
+# (Q4) Manuel de configuration de JMeter
+
+On commence par télécharger un binaire de JMeter à partir du site d'Apache. On lance l'application en double-cliquant sur l'exécutable `jmeter` dans le dossier `bin` du dossier extracté de l'archive obtenue.
+
+Lorsque le GUI de JMeter s'ouvre, on clique sur le boutons `Templates...` en haut à gauche de la fenêtre, on sélectionne `Building a Web Test Plan` et on clique `Create` au bas de la fenêtre.
+
+Un premier scénario (Thread group) est automatiquement créé. Nous le renommons simplement à `Charge réduite` pour indiquer que ce scénario correspond à celui que nous avons défini pour simuler une charge légère sur l'API de l'application Weka REST.
+
+On commmence par définir l'addresse IP du serveur (`127.0.0.1`) et le port utilisé (`8080`) dans la fenêtre `HTTP Request Defaults`.
+
+Ensuite, on ajoute des requêtes HTTP en faisant un clique droit sur le scénario `Charge réduite` et en sélectionnant `Add > Sampler > HTTP Request`.
+
+Une fois la requête HTTP créée, on peut spécifier un endpoint de l'API (`Path` et `Method`) que le scénario JMeter ciblera. On peut d'ailleurs spécifier tout `header` ou `request body` nécessaire à la requête HTTP du scénario dans cette fenêtre.
+
 
 
 
