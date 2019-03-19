@@ -1,5 +1,5 @@
 
-# Manuel de déploiement de Weka en Docker
+# (Q2) Manuel de déploiement de Weka en Docker
 
 On commence par compiler le WAR avec Maven avec la commande suivante..
 
