@@ -36,7 +36,7 @@ Les lignes suivantes ont été ajouté au Dockerfile pour installer JProfiler:
 RUN wget https://download-keycdn.ej-technologies.com/jprofiler/jprofiler_linux_11_0.tar.gz -P /tmp/ &&\
 tar -xzf /tmp/jprofiler_linux_11_0.tar.gz -C /usr/local &&\
 rm /tmp/jprofiler_linux_11_0.tar.gz
-ENV JPAGENT_PATH="-agentpath:/usr/local/jprofiler9/bin/linux-x64/libjprofilerti.so=nowait"
+ENV JPAGENT_PATH="-agentpath:/usr/local/jprofiler11.0/bin/linux-x64/libjprofilerti.so=nowait"
 EXPOSE 8849
 ```
 
@@ -55,7 +55,7 @@ Il faut ensuite se connecter en SSH au conteneur avec la commande:
 Dans le conteneur, effectuer les commande suivantes pour configurer JProfiler:
 
 ```
-cd /usr/local/jrofiler11/
+cd /usr/local/jprofiler11.0/
 bin/jpenable
 ```
 
