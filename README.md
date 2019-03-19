@@ -32,10 +32,10 @@ On peut confirmer que le déploiement a été effectué avec succès en naviguan
 Les lignes suivantes ont été ajouté au Dockerfile pour installer JProfiler:
 
 ```
-RUN wget http://download-keycdn.ej-technologies.com/jprofiler/jprofiler_linux_9_2.tar.gz -P /tmp/ &&\
- tar -xzf /tmp/jprofiler_linux_9_2.tar.gz -C /usr/local &&\
- rm /tmp/jprofiler_linux_9_2.tar.gz
- 
+# Configuration JProfiler (Q3)
+RUN wget https://download-keycdn.ej-technologies.com/jprofiler/jprofiler_linux_11_0.tar.gz -P /tmp/ &&\
+tar -xzf /tmp/jprofiler_linux_9_2.tar.gz -C /usr/local &&\
+rm /tmp/jprofiler_linux_9_2.tar.gz
 ENV JPAGENT_PATH="-agentpath:/usr/local/jprofiler9/bin/linux-x64/libjprofilerti.so=nowait"
 EXPOSE 8849
 ```
