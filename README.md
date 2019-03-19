@@ -34,8 +34,8 @@ Les lignes suivantes ont été ajouté au Dockerfile pour installer JProfiler:
 ```
 # Configuration JProfiler (Q3)
 RUN wget https://download-keycdn.ej-technologies.com/jprofiler/jprofiler_linux_11_0.tar.gz -P /tmp/ &&\
-tar -xzf /tmp/jprofiler_linux_9_2.tar.gz -C /usr/local &&\
-rm /tmp/jprofiler_linux_9_2.tar.gz
+tar -xzf /tmp/jprofiler_linux_11_0.tar.gz -C /usr/local &&\
+rm /tmp/jprofiler_linux_11_0.tar.gz
 ENV JPAGENT_PATH="-agentpath:/usr/local/jprofiler9/bin/linux-x64/libjprofilerti.so=nowait"
 EXPOSE 8849
 ```
@@ -55,9 +55,13 @@ Il faut ensuite se connecter en SSH au conteneur avec la commande:
 Dans le conteneur, effectuer les commande suivantes pour configurer JProfiler:
 
 ```
-cd /usr/local/jrofiler9/
+cd /usr/local/jrofiler11/
 bin/jpenable
 ```
 
-Télécharger JProfiler sur l'hôter et créer une nouvelle session pointant vers l'addresse IP du conteneur en spécifiant le port 8849. La commande `docker inspect {Container Name}` pour connaitre l'addresse IP.
+Sélectionner l'option `1` puis appuyer sur `Enter`. Entrer le port `8849`.
+
+Télécharger JProfiler 11.0 (même version que sur le conteneur Docker) sur l'hôte et créer une nouvelle session pointant vers l'addresse IP du conteneur en spécifiant le port 8849. La commande `docker inspect {Container Name}` pour connaitre l'addresse IP.
+
+
 
