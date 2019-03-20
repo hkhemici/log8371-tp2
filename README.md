@@ -86,5 +86,5 @@ La première requête est vise l'endpoint `GET /algorithm` et la deuxième vise 
 Nous definissons 4 scénarios simulant respectivement une charge réduite, une charge moyenne, une charge augmentée et une charge augmentée exceptionnelle sur l'API de Weka REST. Tous les scénarios JMeter que nous avons utilisés se trouve dans le fichier `jMeter/log8371-tp2.jmx` de l'entrepôt GitHub que nous remettons.
 
 Le premier scénario, celui de la charge réduite, est constitué simplement de requêtes `GET /algorithm`. On y spécifie un seul thread qui lance cette requête et on constate les résultats de cette charge tant sur JMeter que sur JProfiler.
-
-
+      
+![Charge réduite JMeter](jMeter/Screenshots/chargeReduite/chargeReduiteJMeter.png)
