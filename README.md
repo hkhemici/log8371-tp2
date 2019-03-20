@@ -123,14 +123,24 @@ Nous avons ainsi configuré 4 scénarios dans JMeter conformément à leur défi
 
 # (Q4) Résultats obtenus sur JMeter
 
+Revoyons maintenant les résultats que nous obtenons à l'aide de JMeter lors de l'exécution des 4 scénarios définis à la question 3.
+
 ### Charge réduite
 ![Charge réduite JMeter](jMeter/Screenshots/chargeReduite/chargeReduiteJMeter.png)
+
+Lorsqu'on exécute le scénario simulant une charge réduite, on constate que toutes les requêtes `GET /algorithm` s'effectuent avec succès (200 OK) et ce, avec une latence basse.
 
 ### Charge moyenne
 ![Charge moyenne JMeter](jMeter/Screenshots/chargeMoyenne/chargeMoyenneJMeter.png)
 
+Lorsqu'on exécute le scénario simulant une charge moyenne, on voit que toutes les requêtes, tant les `GET /algorithm` que les `POST /algorithm/J48/adaboost` s'effectuent avec succès. Lorsqu'on compare les `GET /algorithm` à ceux du scénario précédent, on constate une latence généralement plus élevée.
+
 ### Charge augmentée
 ![Charge augmentee JMeter](jMeter/Screenshots/chargeAugmentee/chargeAugmenteeJMeter.png)
 
+Lorsqu'on exécute le scénario simulant une charge augmentée, on constate que, encore une fois, toutes les requêtes s'effectuent avec succès. Lorsqu'on examinait ce scénario avec JProfiler, il était difficle de constater une différence significative avec le scénario précendent. Avec JMeter, on peut voir que la latence des requêtes `GET /algorithm` est plus élevée que lors d'une charge moyenne.
+
 ### Charge augmentée exceptionnelle
 ![Charge exceptionnelle JMeter](jMeter/Screenshots/chargeExceptionnelle/chargeExceptionnelleJMeter.png)
+
+Finalement, lorsqu'on exécute le scénario simulant une charge augmentée exceptionnelle sur l'API de Weka REST, on voit que plusieurs requêtes `POST /algorithm/J48/adaboost` **échouent** (*timeout*). En effet, contrairement à JProfiler qui n'indiquait pas de différence significative avec le scénario d'une charge augmentée, on voit que Weka REST n'arrive pas à traiter toutes les requêtes de ce scénario avec succès. Nous attribuons le fait que seules les requêtes `POST /algorithm/J48/adaboost` échouent étant donné qu'elles sont plus taxantes que les `GET /algorithm`.
