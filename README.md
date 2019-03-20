@@ -89,11 +89,17 @@ Lorsqu'on exécute le scénario simulant une charge réduite sur l'API Weka REST
 ### Charge moyenne
 ![Charge moyenne JProfiler](jMeter/Screenshots/chargeMoyenne/chargeMoyenneJProfiler.png)
 
+Lorsqu'on exécute le scénario simulant une charge moyenne, on voit que l'utilisation de ressources augmente beaucoup par rapport au scénario précédent. Nous attribuons ce changement au fait que ce deuxième scénario est le premier à envoyer des requêtes `POST /algorithm/J48/adaboost`. Nous estimons que les opérations sur le serveur liées à cet endpoint sont taxantes sur le système (beaucoup plus taxantes que les opérations nécessaires aux requêtes `GET /algorithm`).
+
 ### Charge augmentée
 ![Charge augmentee JProfiler](jMeter/Screenshots/chargeAugmentee/chargeAugmenteeJProfiler.png)
 
+Lorsqu'on exécute le scénario simulant une charge augmentée, qui correspond aux mêmes appels que la charge moyenne, mais effectués par un nombre double d'utilisateurs (10 au lieu de 5), on voit que l'utilisation de ressources est encore une fois très élevée. Étant donné que la consommation de ressources atteignait déjà de hauts seuils lors de la charge moyenne (en raison des appels `POST /algorithm/J48/adaboost` introduits), il est difficile d'évaluer la différence entre la performance du système lors de la charge moyenne et lors de la charge augmentée avec JProfiler (JMeter se montrera plus utile).
+
 ### Charge augmentée exceptionnelle
 ![Charge exceptionnelle JProfiler](jMeter/Screenshots/chargeExceptionnelle/chargeExceptionnelleJProfiler.png)
+
+Lorsqu'on exécute le scénario simulant une charge augmentée exceptionnelle sur l'API de Weka REST, où on passe maintenant à 20 utilisateurs qui lancent des requêtes `GET /algorithm` et `POST /algorithm/J48/adaboost`, on constante encore une fois que la consommation de ressources est très élevée. Il est ici aussi difficile de constater une différence avec le scénario précédent avec JProfiler étant donné le fait que les requêtes `POST /algorithm/J48/adaboost` sont très taxantes, JMeter se montrera plus utile à évaluer la performance du système dans ces conditions.
 
 # (Q4) Manuel de configuration de JMeter
 
