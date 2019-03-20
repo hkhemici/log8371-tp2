@@ -81,12 +81,18 @@ Finalement, le **quatrième scénario**, celui d'une charge augmentée exception
 
 Nous avons utilisé JMeter pour lancer les requêtes dans le cadre des scénarios que nous avons définis. La configuration de JMeter et les résultats obtenus sur JMeter se trouvent plus bas dans ce README. Cette section présente les résultats obtenus dans JProfiler lors de l'exécution des 4 scénarios définis.
 
+### Charge réduite
 ![Charge réduite JProfiler](jMeter/Screenshots/chargeReduite/chargeReduiteJProfiler.png)
 
+Lorsqu'on exécute le scénario simulant une charge réduite sur l'API Weka REST, on voit que l'utilisation de ressources augmente (par rapport à l'utilisation de ressource en l'absence de requêtes), mais que celle-ci n'est pas considérable. On voit par exemple que l'utilisation de CPU ne dépasse pas ~20%.
+
+### Charge moyenne
 ![Charge moyenne JProfiler](jMeter/Screenshots/chargeMoyenne/chargeMoyenneJProfiler.png)
 
+### Charge augmentée
 ![Charge augmentee JProfiler](jMeter/Screenshots/chargeAugmentee/chargeAugmenteeJProfiler.png)
 
+### Charge augmentée exceptionnelle
 ![Charge exceptionnelle JProfiler](jMeter/Screenshots/chargeExceptionnelle/chargeExceptionnelleJProfiler.png)
 
 # (Q4) Manuel de configuration de JMeter
@@ -111,10 +117,14 @@ Nous avons ainsi configuré 4 scénarios dans JMeter conformément à leur défi
 
 # (Q4) Résultats obtenus sur JMeter
 
+### Charge réduite
 ![Charge réduite JMeter](jMeter/Screenshots/chargeReduite/chargeReduiteJMeter.png)
 
+### Charge moyenne
 ![Charge moyenne JMeter](jMeter/Screenshots/chargeMoyenne/chargeMoyenneJMeter.png)
 
+### Charge augmentée
 ![Charge augmentee JMeter](jMeter/Screenshots/chargeAugmentee/chargeAugmenteeJMeter.png)
 
+### Charge augmentée exceptionnelle
 ![Charge exceptionnelle JMeter](jMeter/Screenshots/chargeExceptionnelle/chargeExceptionnelleJMeter.png)
