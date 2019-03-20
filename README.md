@@ -81,7 +81,13 @@ Finalement, le **quatrième scénario**, celui d'une charge augmentée exception
 
 Nous avons utilisé JMeter pour lancer les requêtes dans le cadre des scénarios que nous avons définis. La configuration de JMeter et les résultats obtenus sur JMeter se trouvent plus bas dans ce README. Cette section présente les résultats obtenus dans JProfiler lors de l'exécution des 4 scénarios définis.
 
-![Charge réduite JMeter](jMeter/Screenshots/chargeReduite/chargeReduiteJMeter.png)
+![Charge réduite JProfiler](jMeter/Screenshots/chargeReduite/chargeReduiteJProfiler.png)
+
+![Charge moyenne JProfiler](jMeter/Screenshots/chargeMoyenne/chargeMoyenneJProfiler.png)
+
+![Charge augmentee JProfiler](jMeter/Screenshots/chargeAugmentee/chargeAugmenteeJProfiler.png)
+
+![Charge exceptionnelle JProfiler](jMeter/Screenshots/chargeExceptionnelle/chargeExceptionnelleJProfiler.png)
 
 # (Q4) Manuel de configuration de JMeter
 
@@ -103,3 +109,12 @@ La première requête est vise l'endpoint `GET /algorithm` et la deuxième vise 
 
 Nous avons ainsi configuré 4 scénarios dans JMeter conformément à leur définition à la Q3, ceux-ci sont disponible dans le fichier `jMeter/log8371-tp2.jmx` de l'entrepôt GitHub que nous remettons.
 
+# (Q4) Résultats obtenus sur JMeter
+
+![Charge réduite JMeter](jMeter/Screenshots/chargeReduite/chargeReduiteJMeter.png)
+
+![Charge moyenne JMeter](jMeter/Screenshots/chargeMoyenne/chargeMoyenneJMeter.png)
+
+![Charge augmentee JMeter](jMeter/Screenshots/chargeAugmentee/chargeAugmenteeJMeter.png)
+
+![Charge exceptionnelle JMeter](jMeter/Screenshots/chargeExceptionnelle/chargeExceptionnelleJMeter.png)
