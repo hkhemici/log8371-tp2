@@ -79,6 +79,12 @@ Ensuite, on ajoute des requêtes HTTP en faisant un clique droit sur le scénari
 
 Une fois la requête HTTP créée, on peut spécifier un endpoint de l'API (`Path` et `Method`) que le scénario JMeter ciblera. On peut d'ailleurs spécifier tout `header` ou `request body` nécessaire à la requête HTTP du scénario dans cette fenêtre.
 
+Il est possible de spécifier plusieurs requêtes HTTP pour chaque scénario. Dans le cadre de ce laboratoire, étant donné l'objectif de tester l'effet de charges grandissantes sur le système, nous avons sélectionné 2 requêtes HTTP que nous effectuons sur l'API de l'application Weka REST à plusieurs reprises.
 
+La première requête est vise l'endpoint `GET /algorithm` et la deuxième vise l'endpoint `POST /algorithm/J48/adaboost`. Lors de la requête POST, nous envoyons un fichier `.arff` que nous avons obtenu en examinant les tests présents dans le code source de Weka REST (le fichier est présent dans l'entrepot GitHub que nous remettons à l'emplacement `testData/weather.numeric.arff`).
+
+Nous definissons 4 scénarios simulant respectivement une charge réduite, une charge moyenne, une charge augmentée et une charge augmentée exceptionnelle sur l'API de Weka REST. Tous les scénarios JMeter que nous avons utilisés se trouve dans le fichier `jMeter/log8371-tp2.jmx` de l'entrepôt GitHub que nous remettons.
+
+Le premier scénario, celui de la charge réduite, est constitué simplement de requêtes `GET /algorithm`. On y spécifie un seul thread qui lance cette requête et on constate les résultats de cette charge tant sur JMeter que sur JProfiler.
 
 
