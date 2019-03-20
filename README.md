@@ -65,6 +65,24 @@ Sélectionner l'option `1` puis appuyer sur `Enter`. Entrer le port `8849`.
 
 Télécharger JProfiler 11.0 (même version que sur le conteneur Docker) sur l'hôte et créer une nouvelle session pointant vers l'addresse IP `127.0.0.1` en spécifiant le port 8849. La session ouverte permet ainsi l'obtention de données sur la consommation des ressources par l'application Weka REST roulant sur le conteneur Docker créé.
 
+# (Q3) Définition des scénarios
+
+Nous definissons 4 scénarios simulant respectivement une charge réduite, une charge moyenne, une charge augmentée et une charge augmentée exceptionnelle sur l'API de Weka REST (la configuration JMeter de chacun de ces scénarios se trouve dans le fichier `jMeter/log8371-tp2.jmx` de l'entrepôt GitHub que nous remettons).
+
+Le **premier scénario**, celui de la charge réduite, est constitué simplement de requêtes `GET /algorithm` sur l'API de l'application Weka REST. Ce scénario met en jeu un seul utilisateur (un seul thread sur JMeter) qui lance cette requête à répétition sur l'API de Weka REST.
+
+Le **deuxième scénario**, celui de la charge moyenne, consiste en 2 appels, un `GET /algorithm` et un `POST /algorithm/J48/adaboost` effectués en alternance à répétition par 5 utilisateurs (5 threads sur JMeter). Le fichier passé avec le `POST` est le même pour tous les appels `POST /algorithm/J48/adaboost` de ce scénario et des scénarios subséquents, les détails de ce fichier sont disponibles dans le manuel de configuration de JMeter plus bas dans ce README.
+
+Le **troisième scénario**, celui de la charge augmentée, consiste à effectuer les 2 mêmes appels que lors de la charge moyenne, mais cette fois en utilisant 10 utilisateurs (10 threads sur JMeter).
+
+Finalement, le **quatrième scénario**, celui d'une charge augmentée exceptionnelle, consiste à effectuer les 2 mêmes appels qu'on utilise dans les charges moyenne et augmentée, mais cette fois en utilisant 20 utilisateurs (comme pour les autres scénarios, les appels sont toujours effectués en alternance et à répétition).
+
+# (Q3) Résultats obtenus sur JProfiler
+
+Nous avons utilisé JMeter pour lancer les requêtes dans le cadre des scénarios que nous avons définis. La configuration de JMeter et les résultats obtenus sur JMeter se trouvent plus bas dans ce README. Cette section présente les résultats obtenus dans JProfiler lors de l'exécution des 4 scénarios définis.
+
+![Charge réduite JMeter](jMeter/Screenshots/chargeReduite/chargeReduiteJMeter.png)
+
 # (Q4) Manuel de configuration de JMeter
 
 On commence par télécharger un binaire de JMeter à partir du site d'Apache. On lance l'application en double-cliquant sur l'exécutable `jmeter` dans le dossier `bin` du dossier extracté de l'archive obtenue.
@@ -83,8 +101,5 @@ Il est possible de spécifier plusieurs requêtes HTTP pour chaque scénario. Da
 
 La première requête est vise l'endpoint `GET /algorithm` et la deuxième vise l'endpoint `POST /algorithm/J48/adaboost`. Lors de la requête POST, nous envoyons un fichier `.arff` que nous avons obtenu en examinant les tests présents dans le code source de Weka REST (le fichier est présent dans l'entrepot GitHub que nous remettons à l'emplacement `testData/weather.numeric.arff`).
 
-Nous definissons 4 scénarios simulant respectivement une charge réduite, une charge moyenne, une charge augmentée et une charge augmentée exceptionnelle sur l'API de Weka REST. Tous les scénarios JMeter que nous avons utilisés se trouve dans le fichier `jMeter/log8371-tp2.jmx` de l'entrepôt GitHub que nous remettons.
+Nous avons ainsi configuré 4 scénarios dans JMeter conformément à leur définition à la Q3, ceux-ci sont disponible dans le fichier `jMeter/log8371-tp2.jmx` de l'entrepôt GitHub que nous remettons.
 
-Le premier scénario, celui de la charge réduite, est constitué simplement de requêtes `GET /algorithm`. On y spécifie un seul thread qui lance cette requête et on constate les résultats de cette charge tant sur JMeter que sur JProfiler.
-      
-![Charge réduite JMeter](jMeter/Screenshots/chargeReduite/chargeReduiteJMeter.png)
