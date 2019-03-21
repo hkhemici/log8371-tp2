@@ -26,6 +26,8 @@ services:
   lb:
     image: dockercloud/haproxy
     restart: always
+    environment:
+      - BALANCE=leastconn
     links:
       - jguweka
     volumes:

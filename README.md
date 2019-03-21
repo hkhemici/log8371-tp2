@@ -178,6 +178,8 @@ services:
   lb:
     image: dockercloud/haproxy
     restart: always
+    environment:
+      - BALANCE=leastconn
     links:
       - jguweka
     volumes:
@@ -199,12 +201,12 @@ Il suffit alors d'effectuer la commande `docker-compose up` pour lancer les diff
 Pour lancer plusieurs instances du service `jguweka`, ajouter le flag `--scale`:
 
 ```
-docker-compose up --scale jguweka=5 // Cette commande permet de créer 5 instance du service jguweka
+docker-compose up --scale jguweka=5 // Cette commande permet de créer 5 instances du service jguweka
 ```
 
-Le balanceur de charge utilise l'algorithme `round-robin` pour distribuer la charge.
+Le balanceur de charge utilise l'algorithme `leastconn` pour distribuer la charge aux serveurs ayant le moins de connexions. Cela est idéal pour les requêtes qui dure plus longtemps, ce qui est notre cas.
 
-## Résultats
+## Résultats avec la charge exceptionnelle
 
 ### Avec une seule instance
 ![Charge exceptionnelle avec une instance](jMeter/Screenshots-Q5/10-1.png)
