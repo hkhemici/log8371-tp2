@@ -82,22 +82,22 @@ Finalement, le **quatrième scénario**, celui d'une charge augmentée exception
 Nous avons utilisé JMeter pour lancer les requêtes dans le cadre des scénarios que nous avons définis. La configuration de JMeter et les résultats obtenus sur JMeter se trouvent plus bas dans ce README. Cette section présente les résultats obtenus dans JProfiler lors de l'exécution des 4 scénarios définis.
 
 ### Charge réduite
-![Charge réduite JProfiler](jMeter/Screenshots/chargeReduite/chargeReduiteJProfiler.png)
+![Charge réduite JProfiler](jMeter/Screenshots Q4/chargeReduite/chargeReduiteJProfiler.png)
 
 Lorsqu'on exécute le scénario simulant une charge réduite sur l'API Weka REST, on voit que l'utilisation de ressources augmente (par rapport à l'utilisation de ressource en l'absence de requêtes), mais que celle-ci n'est pas considérable. On voit par exemple que l'utilisation de CPU ne dépasse pas ~20%.
 
 ### Charge moyenne
-![Charge moyenne JProfiler](jMeter/Screenshots/chargeMoyenne/chargeMoyenneJProfiler.png)
+![Charge moyenne JProfiler](jMeter/Screenshots Q4/chargeMoyenne/chargeMoyenneJProfiler.png)
 
 Lorsqu'on exécute le scénario simulant une charge moyenne, on voit que l'utilisation de ressources augmente beaucoup par rapport au scénario précédent. Nous attribuons ce changement au fait que ce deuxième scénario est le premier à envoyer des requêtes `POST /algorithm/J48/adaboost`. Nous estimons que les opérations sur le serveur liées à cet endpoint sont taxantes sur le système (beaucoup plus taxantes que les opérations nécessaires aux requêtes `GET /algorithm`).
 
 ### Charge augmentée
-![Charge augmentee JProfiler](jMeter/Screenshots/chargeAugmentee/chargeAugmenteeJProfiler.png)
+![Charge augmentee JProfiler](jMeter/Screenshots Q4/chargeAugmentee/chargeAugmenteeJProfiler.png)
 
 Lorsqu'on exécute le scénario simulant une charge augmentée, qui correspond aux mêmes appels que la charge moyenne, mais effectués par un nombre double d'utilisateurs (10 au lieu de 5), on voit que l'utilisation de ressources est encore une fois très élevée. Étant donné que la consommation de ressources atteignait déjà de hauts seuils lors de la charge moyenne (en raison des appels `POST /algorithm/J48/adaboost` introduits), il est difficile d'évaluer la différence entre la performance du système lors de la charge moyenne et lors de la charge augmentée avec JProfiler (JMeter se montrera plus utile).
 
 ### Charge augmentée exceptionnelle
-![Charge exceptionnelle JProfiler](jMeter/Screenshots/chargeExceptionnelle/chargeExceptionnelleJProfiler.png)
+![Charge exceptionnelle JProfiler](jMeter/Screenshots Q4/chargeExceptionnelle/chargeExceptionnelleJProfiler.png)
 
 Lorsqu'on exécute le scénario simulant une charge augmentée exceptionnelle sur l'API de Weka REST, où on passe maintenant à 20 utilisateurs qui lancent des requêtes `GET /algorithm` et `POST /algorithm/J48/adaboost`, on constante encore une fois que la consommation de ressources est très élevée. Il est ici aussi difficile de constater une différence avec le scénario précédent avec JProfiler étant donné le fait que les requêtes `POST /algorithm/J48/adaboost` sont très taxantes, JMeter se montrera plus utile à évaluer la performance du système dans ces conditions.
 
@@ -126,21 +126,99 @@ Nous avons ainsi configuré 4 scénarios dans JMeter conformément à leur défi
 Revoyons maintenant les résultats que nous obtenons à l'aide de JMeter lors de l'exécution des 4 scénarios définis à la question 3.
 
 ### Charge réduite
-![Charge réduite JMeter](jMeter/Screenshots/chargeReduite/chargeReduiteJMeter.png)
+![Charge réduite JMeter](jMeter/Screenshots Q4/chargeReduite/chargeReduiteJMeter.png)
 
 Lorsqu'on exécute le scénario simulant une charge réduite, on constate que toutes les requêtes `GET /algorithm` s'effectuent avec succès (200 OK) et ce, avec une latence basse.
 
 ### Charge moyenne
-![Charge moyenne JMeter](jMeter/Screenshots/chargeMoyenne/chargeMoyenneJMeter.png)
+![Charge moyenne JMeter](jMeter/Screenshots Q4/chargeMoyenne/chargeMoyenneJMeter.png)
 
 Lorsqu'on exécute le scénario simulant une charge moyenne, on voit que toutes les requêtes, tant les `GET /algorithm` que les `POST /algorithm/J48/adaboost` s'effectuent avec succès. Lorsqu'on compare les `GET /algorithm` à ceux du scénario précédent, on constate une latence généralement plus élevée.
 
 ### Charge augmentée
-![Charge augmentee JMeter](jMeter/Screenshots/chargeAugmentee/chargeAugmenteeJMeter.png)
+![Charge augmentee JMeter](jMeter/Screenshots Q4/chargeAugmentee/chargeAugmenteeJMeter.png)
 
 Lorsqu'on exécute le scénario simulant une charge augmentée, on constate que, encore une fois, toutes les requêtes s'effectuent avec succès. Lorsqu'on examinait ce scénario avec JProfiler, il était difficle de constater une différence significative avec le scénario précendent. Avec JMeter, on peut voir que la latence des requêtes `GET /algorithm` est plus élevée que lors d'une charge moyenne.
 
 ### Charge augmentée exceptionnelle
-![Charge exceptionnelle JMeter](jMeter/Screenshots/chargeExceptionnelle/chargeExceptionnelleJMeter.png)
+![Charge exceptionnelle JMeter](jMeter/Screenshots Q4/chargeExceptionnelle/chargeExceptionnelleJMeter.png)
 
 Finalement, lorsqu'on exécute le scénario simulant une charge augmentée exceptionnelle sur l'API de Weka REST, on voit que plusieurs requêtes `POST /algorithm/J48/adaboost` **échouent** (*timeout*). En effet, contrairement à JProfiler qui n'indiquait pas de différence significative avec le scénario d'une charge augmentée, on voit que Weka REST n'arrive pas à traiter toutes les requêtes de ce scénario avec succès. Nous attribuons le fait que seules les requêtes `POST /algorithm/J48/adaboost` échouent étant donné qu'elles sont plus taxantes que les `GET /algorithm`.
+
+# (Q5) Mise à l'échelle avec docker-compose
+
+Le fichier `docker-compose` suivant a été créé:
+
+```
+version: '3'
+services:
+  mongo:
+    image: mongo
+    restart: always
+    networks:
+      - web
+      
+  jguweka:
+    build: .
+    restart: always
+    links:
+      - "mongo:mongodb"
+    ports:
+      - 8080
+      - "8849-8859:8849"
+    depends_on:
+      - mongo
+    labels:
+      - "service-name:jguweka"
+      - "service-type:app-srv"
+      - "environment:test"
+    networks:
+      - web
+
+  lb:
+    image: dockercloud/haproxy
+    restart: always
+    links:
+      - jguweka
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+    ports:
+      - 80:80
+    networks:
+      - web
+
+networks:
+  web:
+    driver: bridge
+```
+
+Les deux services des questions précédentes sont encore présents (`jguweka` et `mongo`). Nous avons ajouté le service `lb` qui est un balanceur de charge utilisant l'image HAproxy.
+
+Il suffit alors d'effectuer la commande `docker-compose up` pour lancer les différents conteneurs.
+
+Pour lancer plusieurs instances du service `jguweka`, ajouter le flag `--scale`:
+
+```
+docker-compose up --scale jguweka=5 // Cette commande permet de créer 5 instance du service jguweka
+```
+
+Le balanceur de charge utilise l'algorithme `round-robin` pour distribuer la charge.
+
+## Résultats
+
+### Avec une seule instance
+![Charge exceptionnelle avec une instance](jMeter/Screenshots Q5/10-1.png)
+
+On remarque que la charge CPU `processus` (en vert) est très élevée et atteint rapidement 100%. Le conteneur tombe en panne après quelques secondes et tente de difficilement de redémarrer à quelques reprises par la suite.
+
+![Charge exceptionnelle avec une instance](jMeter/Screenshots Q5/10-1-errors.png)
+De nombreuses requêtes sont échouées: le serveur n'arrive pas à satisfaire la demande trop élevée.
+
+### Avec une 5 instances
+![Charge exceptionnelle avec une instance](jMeter/Screenshots Q5/10-5.png)
+
+On remarque que la charge CPU `processus` (en vert) reste aux alentours de 20%. Le nombre de thread également peut augmenter davantage: il atteint 80 vers la fin du test de charge.
+
+![Charge exceptionnelle avec une instance](jMeter/Screenshots Q5/10-5-errors.png)
+
+Aucune requête n'est échouée, la mise à l'échelle permet de répondre à une plus grande quantité de requêtes.
