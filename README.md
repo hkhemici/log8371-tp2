@@ -224,3 +224,7 @@ On remarque que la charge CPU `processus` (en vert) reste aux alentours de 20%. 
 ![Charge exceptionnelle avec une instance](jMeter/Screenshots-Q5/10-5-errors.png)
 
 Aucune requête n'est échouée, la mise à l'échelle permet de répondre à une plus grande quantité de requêtes.
+
+# (Q6) Vidéo
+
+Lien vers la vidéo: https://youtu.be/5HLa1zkgZiE
